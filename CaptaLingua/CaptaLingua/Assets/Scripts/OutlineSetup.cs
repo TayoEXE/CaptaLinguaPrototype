@@ -9,6 +9,7 @@ public class OutlineSetup : MonoBehaviour
     [Tooltip("Drag in the VRTK_Pointer component which is either on this object or another. Sets up highlighting with the pointer.")]
     public VRTK_Pointer pointer;
     public GameObject rightHandAnchor;
+    public GameObject fruitSaladTask;
 
     private RaycastHit hit;
 
@@ -17,8 +18,18 @@ public class OutlineSetup : MonoBehaviour
     private void Awake()
     {
 
+        fruitSaladTask.active = true;
         var highlightableObjects = GameObject.FindGameObjectsWithTag("CanHighlight");
+        fruitSaladTask.active = false;
 
+        var test = GameObject.FindGameObjectsWithTag("HeadsetCollideIgnore");
+        string testWords = "";
+        foreach (GameObject obj in test)
+        {
+            testWords = obj.transform.name + ", ";
+        }
+
+        Debug.Log("Test = " + testWords);
         // Set up the Outline component for all objects in the scene that can be highlighted, then disable the outline for now
         foreach (GameObject obj in highlightableObjects)
         {
@@ -42,11 +53,13 @@ public class OutlineSetup : MonoBehaviour
     {
         // Check if the pointer is pointing at highlightable object and check if it's pointing at nothing
         hit = pointer.pointerRenderer.GetDestinationHit();
-        
+
+        Debug.Log("hit = " + hit.transform.name);
         if (hit.transform != null)
         {
             if (hit.transform.tag == "CanHighlight")
             {
+                Debug.Log("hit CanHighlight = " + hit.transform.name);
                 GameObject nextHighlight = hit.transform.gameObject;
                 if (currentHighlight != null && currentHighlight != nextHighlight)
                 {

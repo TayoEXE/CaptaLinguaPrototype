@@ -24,6 +24,11 @@ public class VocabManager : MonoBehaviour
         languageID = PlayerPrefs.GetInt("languageID");
         language = languages[languageID];
 
+        //string word = "";
+        //foreach (string voc in vocab) {
+        //    word += voc + ", ";
+        //}
+        //Debug.Log("Word: " + word);
         LoadMap();
     }
 

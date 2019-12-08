@@ -47,11 +47,11 @@ public class MainManager : MonoBehaviour
     private void Update()
     {
         // If you press the B button on the right Oculus Touch controller, for debugging.Re - enable later if you need to test it. Otherwise, use the scene door.
-        if (sceneName == "Kitchen" && (OVRInput.GetUp(OVRInput.Button.Two)))
-        {
-            VocabManager.languageID = (VocabManager.languageID + 1) % VocabManager.num_languages;
-            VocabManager.language = VocabManager.languages[VocabManager.languageID];
-        }
+        //if (sceneName == "Kitchen" && (OVRInput.GetUp(OVRInput.Button.Two)))
+        //{
+        //    VocabManager.languageID = (VocabManager.languageID + 1) % VocabManager.num_languages;
+        //    VocabManager.language = VocabManager.languages[VocabManager.languageID];
+        //}
 
         /*
         if (OVRInput.GetUp(OVRInput.Button.Two))

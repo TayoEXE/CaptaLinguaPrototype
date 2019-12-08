@@ -2652,7 +2652,7 @@ ScriptsOnlyBuild:
     className: MouseLook
   - hash:
       serializedVersion: 2
-      Hash: 067deaad65db243ca5fc6b333be035f5
+      Hash: ddc7a69cc97f5c4eef007638b29987a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OutlineSetup
@@ -3938,4 +3938,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Kitchen.unity
-  playerPath: C:/Users/mrlab/Desktop/CaptaLingua/Test.apk
+  playerPath: C:/Users/mrlab/Desktop/CaptaLinguaPrototype/CaptaLingua/Test.apk
