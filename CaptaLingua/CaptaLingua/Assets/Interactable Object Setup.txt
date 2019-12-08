@@ -1,0 +1,33 @@
+1. Move the object into the scene. (Model) If it's a prefab, right-click it in the hierarchy and unpack completely. If it doesn't have a material, add the material and scale it to your favorite size.
+
+2. Place it on the table or other surface. (Remember you can press F while the mouse is in the scene view to center on your object.)
+
+3. Let's make it interactable. If it's a typical object that you don't use on another (aka, like the knife), then follow these instructions. Click on the object. Click Window (top) -> VRTK -> Setup Interactable Object. Click on Hold Button to Grab. For Grab Attach Mechanic, select Fixed Joint. Select Setup selected objects(s). The object now has several VRTK scripts and a Rigidbody.
+
+4. At the top, choose CanHighlight for the Tag. This will make it highlight when you point at it.
+
+5. Under Rigidbody, click on the list for Interpolate. Click Interpolate. This makes the object less "rigidy" when you move it. 
+
+6. At the bottom, click Add Component and type Highlighter. Select VRTK_InteractObjectHighlighter. Under that script in Touch Highlight, select a color for the object to turn when you are touching it. We've been using a light blue for example.
+
+7. Under VRTK_Fixed Joint Grab Attach, select on Precision Grab and set Break Force to 500. This makes the object connect wherever you grabbed it from. (Optional) change throw multiplier to give it more force if you throw it. (Better for "lighter" objects for example.)
+
+8. Next, you need to add a collider. It has a rigidbody, but it will go through the table, etc. without a collider. Go to add component, type Collider, and choose something like a box collider (for most objects). Avoid mesh colliders as they are demanding on the hardware.
+
+9. Click edit collider, and try using orthogonal view to get more precise collision. (Top right compass map thing.)
+
+
+
+Adding the words
+10. Go to a nearby object such as the Spoon, look within its children for ObjectToolTip. Click on it and then click and make sure Pivot is on at the top instead of Center. This is the object used to show the word. First, press CTRL+D to duplicate it. Move the new ObjectToolTip as a child of the new object. Make sure to remove the (1) at the end so that it also says ObjectToolTip.
+
+11. Move the new ObjectToolTip to the center of the parent object. 
+
+12. Right now, under ObjectToolTip, TooltipCanvas (which shows that actual word) is not active. Activate it to see it. Make sure it's in a good position, usually a little over the object in question. Don't worry about the direction it's facing. It automatically faces you in the scene. If it looks good, deactivate only the ToolTipCanvas and move on.
+
+13. Finally, click on the ObjectToolTip and change the word to your liking. 
+
+
+
+To test on the Quest, 
+turn it on. Connect the charger to the PC. Go to File -> Build Settings -> Make sure the device connected is the Quest (click on the list and select it if it isn't already). Under "Scenes in Build," check the scenes you want in the build such as the menu and kitchen. The click Build and Run. Save Test.apk. Let it build for a minute, and then put on the headset. (If it doesn't automatically go to the build, in the menu, click Library -> Unknown Sources -> CaptaLingua.) Put on the headset.
