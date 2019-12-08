@@ -22,14 +22,6 @@ public class OutlineSetup : MonoBehaviour
         var highlightableObjects = GameObject.FindGameObjectsWithTag("CanHighlight");
         fruitSaladTask.active = false;
 
-        var test = GameObject.FindGameObjectsWithTag("HeadsetCollideIgnore");
-        string testWords = "";
-        foreach (GameObject obj in test)
-        {
-            testWords = obj.transform.name + ", ";
-        }
-
-        Debug.Log("Test = " + testWords);
         // Set up the Outline component for all objects in the scene that can be highlighted, then disable the outline for now
         foreach (GameObject obj in highlightableObjects)
         {
