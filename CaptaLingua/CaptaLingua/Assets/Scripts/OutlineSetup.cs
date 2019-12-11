@@ -124,9 +124,8 @@ public class OutlineSetup : MonoBehaviour
         // Get word from the object that was hit based on the language
         VocabManager vocabManager = wordObject.GetComponent<VocabManager>();
 
-        // TO-DO: For debugging, instead set language based on what's set in the vocabManager
-        //string word = vocabManager.vocabMap[language];
         string word = vocabManager.vocabMap[VocabManager.language];
+        AudioSource audio = vocabManager.audioMap[VocabManager.language];
         Debug.Log("vocabManager.vocabMap" + vocabManager.vocabMap);
 
         // Set word to the right hand anchor's ObjectTooltip canvas UIs
@@ -144,11 +143,13 @@ public class OutlineSetup : MonoBehaviour
         }
 
         // Then display the canvas
-        
-
         if (canvas != null)
         {
             canvas.SetActive(true);
+
+            // For now
+            Debug.Log("Playing audio now");
+            audio.Play();
         }
     }
 }

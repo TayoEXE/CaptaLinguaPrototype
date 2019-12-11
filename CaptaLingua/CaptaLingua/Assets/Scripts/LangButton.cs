@@ -42,7 +42,7 @@
                     LanguageSelection.currentSlide = (LanguageSelection.currentSlide + slideOffset) % LanguageSelection.NUM_SLIDES;
                 }
                 LanguageSelection.changeFlag = true;
-                buttonBoop.Play(0);
+                buttonBoop.Play();
 
                 // To persist the data, save the current language to Player Preferences
                 VocabManager.languageID = LanguageSelection.currentSlide;

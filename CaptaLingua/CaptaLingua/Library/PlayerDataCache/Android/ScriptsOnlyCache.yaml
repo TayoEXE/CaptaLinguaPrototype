@@ -2346,7 +2346,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 2f52c743b1e6142b956bd9f23af376e0
+      Hash: ecd2b3a8f7850fdb7c6218b4b850c50b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: VocabManager

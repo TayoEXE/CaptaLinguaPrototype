@@ -11,6 +11,9 @@ public class VocabManager : MonoBehaviour
     public string[] vocab = new string[num_languages];
     public Dictionary<string, string> vocabMap = new Dictionary<string, string>();
 
+    public AudioSource[] wordAudio = new AudioSource[num_languages];
+    public Dictionary<string, AudioSource> audioMap = new Dictionary<string, AudioSource>();
+
     public static int languageID = 2; // Debugging
     public static string language = "EN";
 
@@ -29,16 +32,10 @@ public class VocabManager : MonoBehaviour
         //    word += voc + ", ";
         //}
         //Debug.Log("Word: " + word);
-        LoadMap();
+        LoadMaps();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void LoadMap()
+    private void LoadMaps()
     {
         for (int i = 0; i < num_languages; ++i)
         {
@@ -51,5 +48,26 @@ public class VocabManager : MonoBehaviour
                 vocabMap.Add(languages[i], vocab[i]);
             }
         }
+
+        for (int i = 0; i < num_languages; ++i)
+        {
+            if (wordAudio[i] == null)
+            {
+                Debug.Log(this + "'s audio loaded for " + languages[i]);
+                audioMap.Add(languages[i], wordAudio[i]);
+            }
+            else
+            {
+                //Debug.Log(this + "'s audio did not exist for " + languages[i]);
+                audioMap.Add(languages[i], new AudioSource());
+            }
+        }
+
+        string debug = "";
+        foreach (string wod in audioMap.Keys)
+        {
+            debug += "(" + wod + ", " + audioMap[wod] + ") ";
+        }
+        Debug.Log("audioMap is " + debug);
     }
 }
