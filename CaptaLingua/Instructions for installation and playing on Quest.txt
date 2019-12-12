@@ -1,0 +1,24 @@
+To install the CaptaLinguaVR app on your Quest to try follow these instructions
+
+- Make sure you have SideQuest installed.
+https://sidequestvr.com/#/download
+I recommend using the simple SideQuest Windows installer for Windows 10.
+
+- Next, make sure your Quest is set to developer mode.
+To do this, you need the Oculus app on a mobile device. Go to settings, and under your paired headset, go to more settings. Click on Developer Mode. Then, turn it on.
+
+- Now turn on you Quest, and connect with a USB cable (such as the charging cable or the USB 3 used for Oculus Link). Drag the CaptaLinguaVRFinal.apk onto the top left corner of SideQuest, and it should install it for you.
+
+- Next, on your Quest, select Library at the bottom, select Unknown Sources from the left, and select CaptaLinguaVR.
+
+- In game, in the menu, simply push the buttons under the flags to select the language you'd like to play in.
+
+- Then, open the door (and grab things) using the grip button (the one you squeeze in the middle of the controller). Ignore the other buttons (for later implementation to change scenes, but we only have the Kitchen scene now).
+
+- In the Kitchen, you can interact with objects by grabbing them, or press the trigger (like a gun) to shoot a pointer and highlight things. You will see the word in that language appear to the right of your hand. At this point, press B (the top botton on your right controller) to hear the word said. (Quality may vary as these were test recordings).
+
+- You can open most things like this such as the fridge using the grip button as well.
+
+- On the white taskboard, you will see multiple tasks. Select the top left one, the fruit salad using the pointer (holding down the trigger). Press B while holding down the trigger to change to the Fruit Salad task. You will see items for that task appear such as the bowl and fruit.
+
+- Finally, for an easter egg, look underneath the sink. If you can grab something, hold B for some magic. (The position of your controller and the headset determine the direction, so hold your controller high above your head while looking up to go up.)

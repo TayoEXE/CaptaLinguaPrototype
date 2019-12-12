@@ -15,18 +15,24 @@ public class OutlineSetup : MonoBehaviour
 
     private GameObject currentHighlight = null;
 
+    private const float TIME_LEFT = 1f; // With Time.deltaTime, this is one second
+    private float audioTimer = 0f;
+    private bool resettingTimer = false;
+    private string currentWord = "";
+    private VocabManager curVocManager = null;
+
     private void Awake()
     {
 
-        fruitSaladTask.active = true;
+        fruitSaladTask.SetActive(true);
         var highlightableObjects = GameObject.FindGameObjectsWithTag("CanHighlight");
-        fruitSaladTask.active = false;
+        fruitSaladTask.SetActive(false);
 
         // Set up the Outline component for all objects in the scene that can be highlighted, then disable the outline for now
         foreach (GameObject obj in highlightableObjects)
         {
             obj.AddComponent<Outline>();
-            Debug.Log(obj.name);
+            //Debug.Log(obj.name);
             Outline outline = obj.GetComponent<Outline>();
             outline.enabled = true;
 
@@ -34,7 +40,7 @@ public class OutlineSetup : MonoBehaviour
             outline.OutlineColor = Color.cyan;
             outline.OutlineWidth = 3f;
             outline.precomputeOutline = true;
-            Debug.Log("Precomputed Outlines");
+            //Debug.Log("Precomputed Outlines");
 
             outline.enabled = false;
         }
@@ -43,15 +49,28 @@ public class OutlineSetup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if the timer is still resetting or not.
+        if (resettingTimer)
+        {
+            audioTimer -= Time.deltaTime;
+            
+            if (audioTimer < 0f)
+            {
+                resettingTimer = false;
+            }
+        }
+
         // Check if the pointer is pointing at highlightable object and check if it's pointing at nothing
         hit = pointer.pointerRenderer.GetDestinationHit();
 
-        Debug.Log("hit = " + hit.transform.name);
+        //Debug.Log("hit = " + hit.transform.name);
         if (hit.transform != null)
         {
             if (hit.transform.tag == "CanHighlight")
             {
-                Debug.Log("hit CanHighlight = " + hit.transform.name);
+                PlayHighlightedWord();
+
+                //Debug.Log("hit CanHighlight = " + hit.transform.name);
                 GameObject nextHighlight = hit.transform.gameObject;
                 if (currentHighlight != null && currentHighlight != nextHighlight)
                 {
@@ -88,8 +107,12 @@ public class OutlineSetup : MonoBehaviour
             }
             else
             {
-                Outline oldOutline = currentHighlight.GetComponent<Outline>();
-                oldOutline.enabled = false;
+                if (currentHighlight.GetComponent<Outline>())
+                {
+                    Outline oldOutline = currentHighlight.GetComponent<Outline>();
+                    oldOutline.enabled = false;
+                }
+
                 //GameObject canvas = currentHighlight.transform.Find("ObjectTooltip/TooltipCanvas").gameObject;
 
                 //if (canvas != null)
@@ -122,19 +145,18 @@ public class OutlineSetup : MonoBehaviour
     private void SetObjectWord(GameObject wordObject, string language)
     {
         // Get word from the object that was hit based on the language
-        VocabManager vocabManager = wordObject.GetComponent<VocabManager>();
+        curVocManager = wordObject.GetComponent<VocabManager>();
 
-        string word = vocabManager.vocabMap[VocabManager.language];
-        AudioSource audio = vocabManager.audioMap[VocabManager.language];
-        Debug.Log("vocabManager.vocabMap" + vocabManager.vocabMap);
+        currentWord = curVocManager.vocabMap[VocabManager.language];
+        Debug.Log("vocabManager.vocabMap" + curVocManager.vocabMap);
 
         // Set word to the right hand anchor's ObjectTooltip canvas UIs
         GameObject canvas = rightHandAnchor.transform.Find("ObjectTooltip/TooltipCanvas").gameObject;
 
         if (canvas != null)
         {
-            canvas.transform.Find("UITextFront").gameObject.GetComponent<Text>().text = word;
-            canvas.transform.Find("UITextReverse").gameObject.GetComponent<Text>().text = word;
+            canvas.transform.Find("UITextFront").gameObject.GetComponent<Text>().text = currentWord;
+            canvas.transform.Find("UITextReverse").gameObject.GetComponent<Text>().text = currentWord;
         }
         else
         {
@@ -148,8 +170,20 @@ public class OutlineSetup : MonoBehaviour
             canvas.SetActive(true);
 
             // For now
-            Debug.Log("Playing audio now");
-            audio.Play();
+            //vocabManager.PlayWord();
+        }
+    }
+
+    private void PlayHighlightedWord()
+    {
+        // Check for the B button being pressed, if the timer is still being reset, ignore
+        if (OVRInput.GetUp(OVRInput.Button.Two) && !resettingTimer)
+        {
+            // Pause the music, play the word, and restart the music 
+            MainManager.music.Pause();
+            curVocManager.PlayWord();
+            resettingTimer = true;
+            audioTimer = TIME_LEFT;
         }
     }
 }

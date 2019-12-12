@@ -11,15 +11,32 @@ public class VocabManager : MonoBehaviour
     public string[] vocab = new string[num_languages];
     public Dictionary<string, string> vocabMap = new Dictionary<string, string>();
 
-    public AudioSource[] wordAudio = new AudioSource[num_languages];
-    public Dictionary<string, AudioSource> audioMap = new Dictionary<string, AudioSource>();
+    public AudioClip[] wordAudio = new AudioClip[num_languages];
+    public Dictionary<string, AudioClip> audioMap = new Dictionary<string, AudioClip>();
 
     public static int languageID = 2; // Debugging
     public static string language = "EN";
 
+    private AudioSource src;
+
     // Start is called before the first frame update
     void Awake()
     {
+        src = GetComponent<AudioSource>();
+        //src.playOnAwake = false;
+
+        //if (this.name == "Sink")
+        //{
+        //    string word = "";
+        //    foreach (AudioClip voc in wordAudio)
+        //    {
+        //        word += voc.name + ", ";
+        //    }
+        //    Debug.Log("src: " + src.name);
+        //    Debug.Log("wordAudio: " + word);
+        //}
+
+
         languages[0] = "EN";
         languages[1] = "FR";
         languages[2] = "JP";
@@ -33,6 +50,11 @@ public class VocabManager : MonoBehaviour
         //}
         //Debug.Log("Word: " + word);
         LoadMaps();
+    }
+
+    private void Update()
+    {
+
     }
 
     private void LoadMaps()
@@ -51,15 +73,15 @@ public class VocabManager : MonoBehaviour
 
         for (int i = 0; i < num_languages; ++i)
         {
-            if (wordAudio[i] == null)
+            if (wordAudio[i] != null)
             {
                 Debug.Log(this + "'s audio loaded for " + languages[i]);
                 audioMap.Add(languages[i], wordAudio[i]);
             }
             else
             {
-                //Debug.Log(this + "'s audio did not exist for " + languages[i]);
-                audioMap.Add(languages[i], new AudioSource());
+                Debug.Log(this + "'s audio did not exist for " + languages[i]);
+                audioMap.Add(languages[i], null);
             }
         }
 
@@ -69,5 +91,29 @@ public class VocabManager : MonoBehaviour
             debug += "(" + wod + ", " + audioMap[wod] + ") ";
         }
         Debug.Log("audioMap is " + debug);
+    }
+
+    public void PlayWord()
+    {
+        //Debug.Log("Playword() from " + this.name);
+        //Debug.Log("audioMap in Playword is " + audioMap[language]);
+            
+        if (audioMap[language] != null)
+        {
+            //Debug.Log(this.name + "'s audioMap is" + audioMap["EN"].name);
+            //Debug.Log("Playing audio now");
+            src.PlayOneShot(audioMap[language]);
+            StartCoroutine(PlayResetAudio());
+        }
+        else
+        {
+            Debug.Log(this.name + "'s audioMap was empty");
+        }
+    }
+
+    IEnumerator PlayResetAudio()
+    {
+        yield return new WaitForSeconds(audioMap[language].length);
+        MainManager.music.Play();
     }
 }

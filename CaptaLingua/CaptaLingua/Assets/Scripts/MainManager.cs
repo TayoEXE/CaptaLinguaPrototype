@@ -13,10 +13,12 @@ public class MainManager : MonoBehaviour
     private float _originRotation;
     public Transform _playspace;
     public Transform _centerEyeAnchor;
+    public static AudioSource music;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        music = GetComponent<AudioSource>();
         sceneName = SceneManager.GetActiveScene().name;
         _originPosition = new Vector3(_playspace.transform.position.x, 0, _playspace.transform.position.z);
         _originRotation = _playspace.rotation.eulerAngles.y;
@@ -90,13 +92,13 @@ public class MainManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         float currentRotY = _centerEyeAnchor.eulerAngles.y;
-        Debug.Log(sceneName + " currentRotY: " + currentRotY);
+        //Debug.Log(sceneName + " currentRotY: " + currentRotY);
         float difference = targetYRotation - currentRotY;
-        Debug.Log(sceneName + " targetYRotation: " + targetYRotation);
+        //Debug.Log(sceneName + " targetYRotation: " + targetYRotation);
         _playspace.Rotate(0, difference, 0);
 
         Vector3 newPos = new Vector3(targetPosition.x - _centerEyeAnchor.position.x, 0, targetPosition.z - _centerEyeAnchor.position.z);
-        Debug.Log(sceneName + " newPos: " + newPos);
+        //Debug.Log(sceneName + " newPos: " + newPos);
         _playspace.transform.position += newPos;
     }
 }
